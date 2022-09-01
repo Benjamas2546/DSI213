@@ -20,8 +20,9 @@ function order() {
         if (amount <= 12 && amount > 0) {
             sumPrice += price[index]*amount
         }else if(amount > 12) {
+            var dozen = 249
+            sumPrice += (amount/12 * dozen) + (amount%12 * price[index])
             
-            sumPrice += (donut[index]/12)*249+ (donut[index]%12)*price[index]
             
         }
         else if(amount < 0) {
