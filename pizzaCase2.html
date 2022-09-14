@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dominono Pizza</title>
+    <script src="pizzaCase2.js"></script>
 </head>
 <body>
-    <img src="image/.jpeg" alt="" srcset="" width="200">
+   <h3> Welcome to Dominono Pizza </h3>
+   Let's order Pizza.
+   <select name="" id="pizzaList" onchange="showImage()">
+    <option value="Default">Choose one</option>
+    <option value="Hawaiian">Hawaiian starts at 199</option>
+    <option value="Ham">Ham starts at 219</option>
+    <option value="Seafood">Seafood starts at 399</option>
+    <option value="Pepperoni">Pepperoni starts at 259</option>
+    <option value="DoubleCheese">DoubleCheese starts at 199</option>
+    </select>
+    <img src="image/default.jpg" alt="" srcset="" width="200"
+    id="pizzaImage">
 </body>
 </html>
