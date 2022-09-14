@@ -20,5 +20,16 @@
     </select>
     <img src="image/default.jpg" alt="" srcset="" width="200"
     id="pizzaImage">
+    <br> size
+    <select name="" id="size" onchange="calculatePrice()">
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+        <option value="newYork">New York</option>
+    </select>
+    <br> Amount
+    <input type="number" name="" id="amount"
+    onchange="calculatePrice()">
+    Total Price is <input type="number" name="" id="price" disabled>
 </body>
 </html>
