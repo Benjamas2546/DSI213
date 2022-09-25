@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>CoVid Spreading Calculator</h3>
+    <p>Spreading ratio
+        <br>CoViD-mask vs nonCoVid-mask => 1%
+        <br>CoViD-mask vs nonCoVid-nonmask => 5%
+        <br>CoViD-nonmask vs nonCoVid-mask => 20%
+        <br>CoViD-nonmask vs nonCoVid-nonmask => 80%
+        <!--CoViD vs CoVid => 100% just kidding -->
+        <!--
+        CoViD-mask,     100 คน nonCoViD-mask     1%(100) = 1
+        CoViD-mask,     100 คน nonCoViD-nonmask  5%(100) = 5
+        CoViD-mask,     200 คน nonCoViD-mask     1%(200) = 2
+        CoViD-nonmask,  200 คน nonCoViD-mask     20%(200) = 40
+    -->
+
+        <script>
+
+           /* IsCoViDmask = prompt("Was the sick person wearing mask? 1=wear 2=not-wear");
+            IsnonCoViDmask = prompt("Were people in the room wearing mask? 1=wear 2=not-wear");
+            people = prompt("How many people are in the room?");
+            probability = 0; //ประกาศตัวเเปร
+            if (IsCoViDmask == "1" && IsnonCoViDmask == "1") {
+                probability = 0.01;      //1%
+            } else if (IsCoViDmask == "1" && IsnonCoViDmask == "2") {
+                probability = 0.05;      //5%
+            } else if (IsCoViDmask == "2" && IsnonCoViDmask == "1") {
+                probability = 0.2;      //20%
+            } else if (IsCoViDmask == "2" && IsnonCoViDmask == "2") {
+                probability = 0.8;      //80%
+            }
+            newCoViD = people * probability;
+            alert("It will likely to have " + newCoViD + " people getting CoViD") */
+
+
+            var Peoplemask = prompt("มีคนใส่เเมสก์กี่คน");
+            var Peoplenonmask = prompt("มีคนไม่ใส่เเมสก์กี่คน");
+
+            IsCoViDmask = prompt("ผู้ป่วยใส่เเมสก์ไหม? 1=ใส่ 2=ไม่ใส่");
+            numberCovid = prompt("ผู้ป่วยมีกี่คน");
+            probability1 = 0;
+            //กรณีคนใส่เเมสก์ + ผู้ป่วยใส่เเมสก์
+            if (IsCoViDmask == "1") {
+                probability1 = 0.01;      //1%
+            }
+            //กรณีคนใส่เเมสก์ + ผู้ป่วยไม่ใส่เเมสก์
+            else if (IsCoViDmask == "2") {
+                probability1 = 0.2;      //20%
+            }
+            newCoViD1 = Peoplemask * (probability1 * numberCovid);
+            parseInt(newCoViD1);
+
+            //กรณีคนไม่ใส่เเมสก์ + ผู้ป่วยใส่เเมสก์
+            if (IsCoViDmask == "1") {
+                probability1 = 0.05;      //5%
+            }
+            //กรณีคนไม่ใส่เเมสก์ + ผู้ป่วยไม่ใส่เเมสก์
+            else if (IsCoViDmask == "2") {
+                probability1 = 0.8;      //80%
+            }
+            var pronum8 = probability1 * numberCovid
+            if (pronum8 > 1){
+                pronum8 = 1
+            }
+            newCoViD2 = Peoplenonmask * pronum8;
+            parseInt(newCoViD2);
+
+            var newCoViD3 = parseInt(newCoViD1) + parseInt(newCoViD2);
+            parseInt(newCoViD3);
+
+            var allpeople = parseInt(Peoplemask) + parseInt(Peoplenonmask);
+            alert("It have " + allpeople + " people");
+            alert("It will likely to have " + newCoViD3 + " people getting CoViD")
+
+        </script>
+
+</body>
+
+</html>

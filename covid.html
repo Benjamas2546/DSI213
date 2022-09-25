@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>CoVid Spreading Calculator</h3>
+    <p>Spreading ratio
+    <br>CoViD-mask   vs nonCoVid-mask => 1%
+    <br>CoViD-mask   vs nonCoVid-nonmask => 5%
+    <br>CoViD-nonmask   vs nonCoVid-mask => 20%
+    <br>CoViD-nonmask   vs nonCoVid-nonmask => 80%
+    <!--CoViD vs CoVid => 100% just kidding -->
+    <!--
+        CoViD-mask,     100 คน nonCoViD-mask     1%(100) = 1
+        CoViD-mask,     100 คน nonCoViD-nonmask  5%(100) = 5
+        CoViD-mask,     200 คน nonCoViD-mask     1%(200) = 2
+        CoViD-nonmask,  200 คน nonCoViD-mask     20%(200) = 40
+    -->
+
+    <script>
+    
+        peoplemask = prompt("How many people in the room wearing mask?");
+        peoplenonmask = prompt("How many people in the room not wearing mask?");
+        probability=0; //ประกาศตัวเเปร
+        if( IsCoViDmask == "1" && IsnonCoViDmask == "1"){
+            probability = 0.01;      //1%
+        }else if ( IsCoViDmask == "1" && IsnonCoViDmask =="2"){
+            probability = 0.05;      //5%
+        }else if ( IsCoViDmask == "2" && IsnonCoViDmask =="1"){
+            probability = 0.2;      //20%
+        }else if ( IsCoViDmask == "2" && IsnonCoViDmask =="2"){
+            probability = 0.8;      //80%
+        }
+        newCoViD = people * probability;
+        alert("It will likely to have " + newCoViD + " people getting CoViD")
+
+    </script>
+
+</body>
+</html>
