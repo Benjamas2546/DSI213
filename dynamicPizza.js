@@ -1,18 +1,18 @@
 pizza = ["Hawaiian", "Seafood", "Seafood Deluxe", "pepperoni"];
-//price = [159,299,359,299];
+//price = [159,299,359,299] ตาม size
 size = ["small", "medium", "large", "New York"];
 price = [ [0,159,259,399],
-          [0,159,259,399],
-          [0,159,259,399],
-          [0,159,259,399]];
+          [0,249,399,499],
+          [0,349,499,599],
+          [0,139,189,299]];
 edge = [ "Soft", "Thin", "Cheese", "Bomb", "Sausage"];
 edgePrice = [0,50,70,150,80];
-picture = ["image/hawaiian.png", "image/seafood.png", "image/seafoodDeluxe.png", "/pepperoni.png"];
+picture = ["image/hawaiian.png", "image/seafood.png", "image/seafoodDeluxe.png", "image/pepperoni.png"];
 var rowNumber = 0;
 var pizzaTable;
 
-function startup(){
-    document.write("Pizza Shop of DSI # 2");
+function startApp(){
+    document.write("Welcome to Pizza Compano");
     pizzaTable = document.createElement("table");
     pizzaTable.setAttribute("id", "orderTable")
     pizzaTable.setAttribute("border", "1");
@@ -23,41 +23,48 @@ function startup(){
     cell = row.insertCell(1); cell.innerHTML = "Pizza";
     cell = row.insertCell(2); cell.innerHTML = "Yummy";
     cell = row.insertCell(3); cell.innerHTML = "Size";
-    cell = row.insertCell(4); cell.innerHTML = "Thickness";
+    cell = row.insertCell(4); cell.innerHTML = "Edge";
     cell = row.insertCell(5); cell.innerHTML = "Amount";
     cell = row.insertCell(6); cell.innerHTML = "Price";
     rowNumber=1;
-    insertPizza();
+    insertPizzaRow();
     addButton = document.createElement("input");
     addButton.setAttribute("type", "button");
-    addButton.setAttribute("value", "more pizza");
-    addButton.setAttribute("onclick", "insertPizza()");
+    addButton.setAttribute("value", "Add more pizza!");
+    addButton.setAttribute("onclick", "insertPizzaRow()");
     document.body.appendChild(addButton);
 
+    document.body.appendChild(document.createElement("br"));
+    
     inputTotal = document.createElement("input");
     inputTotal.setAttribute("type", "text");
     inputTotal.setAttribute("id", "total");
-    inputTotal.setAttribute("disabled", "");
+    inputTotal.setAttribute("disabled", "true");
+    inputTotal.setAttribute("value", "Total");
     document.body.appendChild(inputTotal);
 }
 
-function insertPizza(){
+function insertPizzaRow(){
     newRow = pizzaTable.insertRow(rowNumber);
     cell = newRow.insertCell(0);
     cell.innerHTML = rowNumber;
     cell = newRow.insertCell(1);
     selectPizza = document.createElement("select");
     selectPizza.setAttribute("id", "pizzaList" + rowNumber);
-    selectPizza.setAttribute("onchange", "showImage("+rowNumber+")");
-    // <select id = "pizzaList5" onchange="showImage(5)"></select>
+    selectPizza.setAttribute("onchange",
+     "showImage("+rowNumber+"); calculatePrice("+rowNumber+")");
+    // <select id = "pizzaList3" onchange="showImage(3)">
+      //<option value="Hawaiian">Hawaiian 299-499</option>
+    //</select>
     op = document.createElement("option");
     op.setAttribute("value", "None");
-    op.innerHTML = "Choose Pizza";
+    op.innerHTML = "Select Pizza";
     selectPizza.appendChild(op);
     for (let i = 0; i < pizza.length; i++) {
         op = document.createElement("option");
         op.setAttribute("value", pizza[i]);
-        op.innerHTML = pizza[i] + " " + price[i][0]+ "=" + price[i][3]
+        op.innerHTML = pizza[i] + " " + price[i][0]
+        + "-" + price[i][3] + " baht";
         selectPizza.appendChild(op);
     }
     cell.appendChild(selectPizza);
@@ -72,7 +79,7 @@ function insertPizza(){
     cell = newRow.insertCell(3);
     selectSize = document.createElement("select");
     selectSize.setAttribute("id", "size" + rowNumber);
-    selectSize.setAttribute("onchange", "calculatePrice()" + rowNumber);
+    selectSize.setAttribute("onchange", "calculatePrice("+rowNumber+")");
     for (let i = 0; i < size.length; i++) {
        op = document.createElement("option");
        op.setAttribute("value", size[i]);
@@ -84,7 +91,7 @@ function insertPizza(){
     cell = newRow.insertCell(4);
     selectEdge = document.createElement("select");
     selectEdge.setAttribute("id", "edge" + rowNumber);
-    selectEdge.setAttribute("onchange", "calculatePrice()" + rowNumber);
+    selectEdge.setAttribute("onchange", "calculatePrice("+rowNumber+")");
    for (let i = 0; i < edge.length; i++) {
        op = document.createElement("option");
        op.setAttribute("value", edge[i]);
@@ -97,17 +104,20 @@ function insertPizza(){
    inputAmount = document.createElement("input");
    inputAmount.setAttribute("type", "number");
    inputAmount.setAttribute("id", "amount" + rowNumber);
-   inputAmount.setAttribute("onchange", "calculatePrice()" + rowNumber);
+   inputAmount.setAttribute("min", "1");
+   inputAmount.setAttribute("max", "10");
+   inputAmount.setAttribute("onchange", "calculatePrice("+rowNumber+")");
    cell.appendChild(inputAmount);
 
    cell = newRow.insertCell(6);
    inputPrice = document.createElement("input");
-   inputPrice.setAttribute("type", "text");
+   inputPrice.setAttribute("type", "number");
    inputPrice.setAttribute("id", "price" + rowNumber);
-   inputPrice.setAttribute("disabled", "");
+   inputPrice.setAttribute("disabled", "true");
    cell.appendChild(inputPrice);
 
    rowNumber++;
+
 }
 
 function showImage(row){
@@ -117,33 +127,28 @@ function showImage(row){
 }
 
 function pizzaSelected(row){
-    var pizzaC = document.getElementById("pizzaList" + row);
-    var chosenPizzaIndex = pizzaC.selectedIndex - 1;
-    return chosenPizzaIndex;
+    var pizzaChoice = document.getElementById("pizzaList" + row);
+    var pizzaOptionIndex = pizzaChoice.selectedIndex - 1;
+    return pizzaOptionIndex;
 }
 function sizeSelected(row){
-    var sizeC = document.getElementById("size" + row);
-    var chosenSizeIndex = sizeC.selectedIndex;
-    return chosenSizeIndex;
+    var sizeChoice = document.getElementById("size" + row);
+    var sizeOptionIndex = sizeChoice.selectedIndex;
+    return sizeOptionIndex;
 }
 function edgeSelected(row){
-    var edgeC = document.getElementById("edge" + row);
-    var chosenEdgeIndex = edgeC.selectedIndex;
-    return chosenEdgeIndex;
+    var edgeChoice = document.getElementById("edge" + row);
+    var edgeOptionIndex = edgeChoice.selectedIndex;
+    return edgeOptionIndex;
 }
 function calculatePrice(row){
-    userChoice = pizzaSelected(row);
-    piece = document.getElementById("amount"+ row).value;
-    sizeChoice = sizeSelected(row);
-    edgeChoice = edgeSelected(row);
-    //pizzaPrice = piece * price[userChoice];
-    if (price[userChoice][sizeChoice] == 0){
-        pizzaAndEdge = 0;
-       alert(pizza[userChoice]+ " size" + size[sizeChoice]+ "is not correct")
-    }else{
-        pizzaAndEdge = price[userChoice][sizeChoice] + edgePrice[edgeChoice]
-    }
-    pizzaPrice = pizzaAndEdge*piece;
+    var userPizzaChoice = pizzaSelected(row);
+    var userAmount = document.getElementById("amount"+ row).value;
+    var userSizeChoice = sizeSelected(row);
+    var userEdgeChoice = edgeSelected(row);
+    
+    var pizzaPrice = (price[userPizzaChoice][userSizeChoice]
+        +edgePrice[userEdgeChoice] * userAmount);
     document.getElementById("price" + row).value = pizzaPrice;
 
     var total = 0;
